@@ -34,14 +34,7 @@ NUGGGGGH MUST EAT BRAINS
 }
 
 def print_menu(training_paths)
-  puts <<EOS
-==============
-TRAINING PATHS
-==============
-EOS
-  training_paths.each_with_index do |training_path, index|
-    puts "#{index + 1}. #{training_path.name}"
-  end
+
 end
 
 def add_skill_to_training_path(training_path)
