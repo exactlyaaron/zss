@@ -163,4 +163,40 @@ RSpec.describe TrainingPath do
       end
     end
   end
+  context "#skills" do
+    let!(:my_training_path){ TrainingPath.create(name: "Awesome") }
+    let!(:other_training_path){ TrainingPath.create(name: "Weevil") }
+
+    context "if there no skills at all" do
+      it "returns an empty array" do
+        result = my_training_path.skills
+        result.should == []
+      end
+    end
+    context "if there are no skills for this training path" do
+      before do
+        Skill.create(name: "someone else", training_path: other_training_path)
+        Skill.create(name: "someone", training_path: other_training_path)
+      end
+      it "returns an empty array" do
+        result = my_training_path.skills
+        result.should == []
+      end
+    end
+    context "if there are many skills" do
+      let!(:myskill1){ Skill.create(name: "mine!", training_path: my_training_path) }
+      let!(:myskill2){ Skill.create(name: "really mine!", training_path: my_training_path) }
+      let!(:myskill3){ Skill.create(name: "all mine!", training_path: my_training_path) }
+
+      before do
+        Skill.create(name: "someone else", training_path: other_training_path)
+        Skill.create(name: "someone", training_path: other_training_path)
+      end
+
+      it "returns an the skills for this path" do
+        result = my_training_path.skills
+        result.should == [myskill1, myskill2, myskill3]
+      end
+    end
+  end
 end

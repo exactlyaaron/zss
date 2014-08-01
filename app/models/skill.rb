@@ -15,9 +15,9 @@ class Skill
     @training_path ? @training_path.id : @training_path_id
   end
 
-  def self.all
+  def self.all(sql_fragment = "")
     results = []
-    Environment.database.execute("SELECT id, name, description, training_path_id FROM skills").each do |row|
+    Environment.database.execute("SELECT id, name, description, training_path_id FROM skills #{sql_fragment}").each do |row|
       results << Skill.new(id: row[0], name: row[1], description: row[2], training_path_id: row[3])
     end
     results

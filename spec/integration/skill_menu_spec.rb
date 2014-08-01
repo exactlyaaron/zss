@@ -13,7 +13,7 @@ RSpec.describe "Viewing the skill menu" do
     end
 
     it "should include the name of the training path being viewed" do
-      expect(output).to include("We're headed out the path to Hand-to-Hand Combat!")
+      expect(output).to include("We're headed down the path to Hand-to-Hand Combat!")
     end
     it "should list the skills in this training path" do
       expected = "1. with weapons because you want to win\n" +
@@ -29,7 +29,11 @@ RSpec.describe "Viewing the skill menu" do
   context "if we enter a training path the doesn't exist" do
     let(:output){ run_zss_with_input('3') }
     it "prints an error message" do
+<<<<<<< HEAD
       expect(output).to include("Sorry, training path '3' doesn't exist.")
+=======
+      expect(output).to include("Sorry, training path 3 doesn't exist.")
+>>>>>>> upstream/master
     end
   end
 end

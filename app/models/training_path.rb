@@ -46,6 +46,10 @@ class TrainingPath
     end
   end
 
+  def new_record?
+    @id.nil?
+  end
+
   def save!
     if valid?
       Environment.database.execute("INSERT INTO training_paths (name) VALUES ('#{@name}')")
@@ -53,8 +57,8 @@ class TrainingPath
     end
   end
 
-  def new_record?
-    @id.nil?
+  def skills
+    Skill.all("WHERE training_path_id = #{self.id}")
   end
 
   def valid?

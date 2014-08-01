@@ -26,6 +26,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    Environment.database.execute("DELETE FROM skills")
     Environment.database.execute("DELETE FROM training_paths")
     Environment.database.execute("DELETE FROM skills")
   end
@@ -66,6 +67,7 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
+=end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -73,9 +75,10 @@ RSpec.configure do |config|
     # Enable only the newer, non-monkey-patching expect syntax.
     # For more details, see:
     #   - http://myronmars.to/n/dev-blog/2012/06/rspecs-new-expectation-syntax
-    expectations.syntax = :expect
+    expectations.syntax = [:expect, :should]
   end
 
+=begin
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|

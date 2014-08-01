@@ -52,8 +52,16 @@ def add_training_path
 end
 
 def view_training_path(training_paths, path_number)
-  path = training_paths(path_number - 1)
-  puts "Sorry, training path '#{path_number}' doesn't exist."
+
+  training_path = training_paths[path_number - 1]
+  if training_path
+    puts "We're headed down the path to #{training_path.name}!"
+    training_path.skills.each_with_index do |skill, index|
+      puts "#{index + 1}. #{skill.name}"
+    end
+  else
+    puts "Sorry, training path #{path_number} doesn't exist."
+  end
 end
 
 training_paths = TrainingPath.all
