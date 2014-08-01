@@ -28,6 +28,13 @@ NUGGGGGH MUST EAT BRAINS
       expect(actual).to include(expected)
     end
 
+    context "when we type an incorrect command" do
+      let(:output){ run_zss_with_input('remove') }
+      it "prints an informative message" do
+        expect(output).to include("I don't know the 'remove' command.")
+      end
+    end
+
     it "should print the list of training paths" do
       TrainingPath.create(name: "Running")
       TrainingPath.create(name: "Hand-to-Hand Combat")

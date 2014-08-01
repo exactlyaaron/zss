@@ -1,21 +1,22 @@
 RSpec.describe Skill do
   let(:training_path){ TrainingPath.create(name: "Blending In") }
   context ".all" do
-    context "with no training paths in the database" do
+    context "with no skills in the database" do
       it "should return an empty array" do
         expect(Skill.all).to eq []
       end
     end
-    context "with several training paths in the database" do
+    context "with several skills in the database" do
       let!(:foo){ Skill.create(name: "Foo", training_path: training_path) }
       let!(:bar){ Skill.create(name: "bar", training_path: training_path) }
       let!(:grille){ Skill.create(name: "grille", training_path: training_path) }
 
-      it "should return all of the training paths" do
+      it "should return all of the skills" do
         expect(Skill.all).to eq [foo, bar, grille]
       end
     end
   end
+
   context ".count" do
     it "returns 0 if there are no records" do
       expect(Skill.count).to eq 0
@@ -26,6 +27,7 @@ RSpec.describe Skill do
       expect(Skill.count).to eq 2
     end
   end
+
   context ".create" do
     context "with valid data" do
       let!(:skill){ Skill.create(name: "Shuffling", description: "Like running with your feet on the ground", training_path: training_path) }
@@ -57,6 +59,7 @@ RSpec.describe Skill do
       end
     end
   end
+
   context ".last" do
     context "if there are no records" do
       it "should return nil" do
@@ -79,10 +82,11 @@ RSpec.describe Skill do
         expect(Skill.last.id).to eq skill2.id
       end
       it "should return the record that was created last, populated with training_path_id" do
-        expect(Skill.last.id).to eq training_path_id
+        expect(Skill.last.training_path_id).to eq training_path.id
       end
     end
   end
+
   context "equality" do
     let(:training_path){ TrainingPath.create(name: "Zoo") }
     context "the exact same object" do
