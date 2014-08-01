@@ -5,6 +5,10 @@ Dir["./lib/**/*.rb"].each { |f| require f }
 
 Environment.environment = ENV["DB"] || "development"
 
+def clean_gets
+  (gets || "").chomp
+end
+
 zombie = %q{
 NUGGGGGH MUST EAT BRAINS
                            \
@@ -40,9 +44,20 @@ EOS
   end
 end
 
+def add_skill_to_training_path(training_path)
+  puts "What skill do you want to add?"
+  name = clean_gets
+  skill = Skill.create(name: name, training_path: training_path)
+  if skill.new_record?
+    puts skill.errors
+  else
+    puts "#{name} has been added to the #{training_path.name} training path"
+  end
+end
+
 def add_training_path
   puts "What training path do you want to add?"
-  name = (gets || "").chomp
+  name = clean_gets
   training_path = TrainingPath.create(name: name)
   if training_path.new_record?
     puts training_path.errors
@@ -59,6 +74,8 @@ def view_training_path(training_paths, path_number)
     training_path.skills.each_with_index do |skill, index|
       puts "#{index + 1}. #{skill.name}"
     end
+    clean_gets
+    add_skill_to_training_path(training_path)
   else
     puts "Sorry, training path #{path_number} doesn't exist."
   end
@@ -69,7 +86,7 @@ training_paths = TrainingPath.all
 puts zombie
 print_menu(training_paths)
 
-command = gets.chomp
+command = clean_gets
 
 case command
 when "add"
