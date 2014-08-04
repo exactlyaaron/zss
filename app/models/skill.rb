@@ -11,6 +11,13 @@ class Skill
     @description = options[:description]
   end
 
+  def add_description(description)
+    @description = "#{description}"
+    if valid?("description")
+      Environment.database.execute("UPDATE skills SET description='#{description}' WHERE id='#{self.id}'")
+    end
+  end
+
   def training_path_id
     @training_path ? @training_path.id : @training_path_id
   end
@@ -53,8 +60,15 @@ class Skill
     @id.nil?
   end
 
-  def valid?
-    validate
+  def valid?(type="name")
+    case type
+      when "name"
+        validate_name
+      when "description"
+        validate_description
+      else
+        @errors.nil?
+    end
     @errors.nil?
   end
 
@@ -64,11 +78,19 @@ class Skill
 
   private
 
-  def validate
+  def validate_name
     if @name.empty?
       @errors = "name cannot be blank"
     elsif training_path_id.nil?
       @errors = "training path cannot be blank"
+    else
+      @errors = nil
+    end
+  end
+
+  def validate_description
+    if @description.empty?
+      @errors = "description cannot be blank"
     else
       @errors = nil
     end

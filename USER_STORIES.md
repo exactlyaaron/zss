@@ -41,10 +41,8 @@ I want to mark a skill as mastered
 Acceptance Criteria:
 * This builds on the skill details screen
 * User is prompted with "Have you mastered this skill? y/n"
-* Skill mastery is recorded in the achievments model
-  * The progress (mastered / not mastered) is stored in the achievments model.
+* Skill mastery is recorded in the achievements model
+  * The progress (mastered / not mastered) is stored in the achievements model.
   * The datetime when the skill was finally mastered is stored.
 * If a user updates their skill mastery, the existing achievement record is updated.
 * If the skill is mastered, instead of being prompted with "Have you mastered this skill?" the user is shown "You mastered this skill on August 14th at 14:40" (or similar).
-
-

@@ -13,6 +13,19 @@ class SkillsController
     else
       puts "#{name} has been added to the #{@origin_training_path.name} training path"
     end
+    Router.add_skill_description(self, skill)
+  end
+
+  def add_description(origin_skill)
+    puts "What is the description for #{origin_skill.name}?"
+    description = clean_gets
+    origin_skill.add_description(description)
+
+    if origin_skill.errors
+      puts origin_skill.errors
+    else
+      puts "#{origin_skill.name} skill has been updated with your description."
+    end
   end
 
   def list
@@ -24,4 +37,18 @@ class SkillsController
     end
     Router.navigate_skills_menu(self)
   end
+
+  def view(skill_number)
+    skill = @origin_training_path.skills[(skill_number - 1)]
+    if skill
+      puts "=============="
+      puts "#{skill.name.upcase}"
+      puts "=============="
+      puts "#{skill.description}"
+      Router.mark_skill_as_mastered(self)
+    else
+      puts "Sorry, skill #{skill_number} does not exist"
+    end
+  end
+
 end

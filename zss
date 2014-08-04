@@ -5,7 +5,6 @@ Dir["./lib/**/*.rb"].each { |f| require f }
 
 Environment.environment = ENV["DB"] || "development"
 
-
 def clean_gets
   (gets || "").chomp
 end

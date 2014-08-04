@@ -1,0 +1,2 @@
+class Achievement
+end

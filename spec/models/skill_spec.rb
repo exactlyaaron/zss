@@ -1,5 +1,24 @@
 RSpec.describe Skill do
   let(:training_path){ TrainingPath.create(name: "Blending In") }
+
+  context "#add_description" do
+    let!(:skill){ Skill.create(name: "Shuffling", training_path: training_path) }
+
+
+    it "should update the description" do
+      skill.add_description("this is a test description about shuffling")
+      expect(skill.description).to eq "this is a test description about shuffling"
+    end
+
+    it "should have saved the skill description accurately" do
+      skill.add_description("this is a test description about shuffling")
+      actual = Environment.database.execute("SELECT name, description FROM skills WHERE name = 'Shuffling'")
+      expected = [[ "Shuffling", "this is a test description about shuffling" ]]
+      expect(actual).to eq expected
+    end
+
+  end
+
   context ".all" do
     context "with no skills in the database" do
       it "should return an empty array" do
