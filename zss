@@ -5,69 +5,12 @@ Dir["./lib/**/*.rb"].each { |f| require f }
 
 Environment.environment = ENV["DB"] || "development"
 
-zombie = %q{
-NUGGGGGH MUST EAT BRAINS
-                           \
-                                .....
-                               C C  /
-                              /<   /
-               ___ __________/_#__/
-              /(- /(\_\________   \
-              \ ) \ )_      \o     \
-              /|\ /|\       |'     |
-                            |     _|
-                            /o   __\
-                           / '     |
-                          / /      |
-                         /_/\______|
-                        (   _(    <
-                         \    \    \
-                          \    \    |
-                           \____\____\
-                           ____\_\__\_\
-                         /`   /`     o\
-                         |___ |_______|.. .
-}
 
-def print_menu(training_paths)
-  puts <<EOS
-==============
-TRAINING PATHS
-==============
-EOS
-  training_paths.each_with_index do |training_path, index|
-    puts "#{index + 1}. #{training_path.name}"
-  end
+def clean_gets
+  (gets || "").chomp
 end
 
-def add_training_path
-  puts "What training path do you want to add?"
-  name = (gets || "").chomp
-  training_path = TrainingPath.create(name: name)
-  if training_path.new_record?
-    puts training_path.errors
-  else
-    puts "#{name} has been added to the list of training paths"
-  end
-end
+puts IO.readlines('zombie.txt')
 
-def view_training_path(training_paths, path_number)
-  path = training_paths(path_number - 1)
-  puts "Sorry, training path '#{path_number}' doesn't exist."
-end
-
-training_paths = TrainingPath.all
-
-puts zombie
-print_menu(training_paths)
-
-command = gets.chomp
-
-case command
-when "add"
-  add_training_path
-when /\d+/
-  view_training_path(training_paths, command.to_i)
-else
-  puts "I don't know the '#{command}' command."
-end
+training_paths_controller = TrainingPathsController.new()
+training_paths_controller.list

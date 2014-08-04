@@ -29,11 +29,7 @@ RSpec.describe "Viewing the skill menu" do
   context "if we enter a training path the doesn't exist" do
     let(:output){ run_zss_with_input('3') }
     it "prints an error message" do
-<<<<<<< HEAD
-      expect(output).to include("Sorry, training path '3' doesn't exist.")
-=======
       expect(output).to include("Sorry, training path 3 doesn't exist.")
->>>>>>> upstream/master
     end
   end
 end
