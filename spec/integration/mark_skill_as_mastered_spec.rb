@@ -25,10 +25,11 @@ RSpec.describe "Mastering skills" do
 
   context "invalid input" do
     let!(:training_path){ TrainingPath.create(name: "Running") }
+    let!(:skill1){ Skill.create(name: 'Jogging', description: 'Here is a description for jogging', training_path: training_path) }
     let!(:output){ run_zss_with_input("1", "1", "567u89") }
 
     it "prints an error message" do
-      expect(output).to include("I don't know the '567u89' command. PLEASE ENTER 'y' or 'n' dumbass.")
+      expect(output).to include("I don't know the '567u89' command.")
     end
   end
 end

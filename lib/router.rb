@@ -1,17 +1,17 @@
+
+
 class Router
   def self.add_skill_description(skills_controller, skill)
     # clean_gets
     skills_controller.add_description(skill)
   end
 
-  def self.mark_skill_as_mastered(skills_controller)
+  def self.mark_skill_as_mastered(achievements_controller, skill)
+    puts "Have you mastered this skill? y/n"
     command = clean_gets
 
-    case command
-    when "y"
-      # do stuff
-    when "n"
-      # do other stuff
+    if command == "y" || command == "n"
+      achievements_controller.confirm_mastery(command, skill)
     else
       puts "I don't know the '#{command}' command."
     end

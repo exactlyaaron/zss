@@ -45,7 +45,8 @@ class SkillsController
       puts "#{skill.name.upcase}"
       puts "=============="
       puts "#{skill.description}"
-      Router.mark_skill_as_mastered(self)
+      achievements_controller = AchievementsController.new
+      Router.mark_skill_as_mastered(achievements_controller, skill)
     else
       puts "Sorry, skill #{skill_number} does not exist"
     end
